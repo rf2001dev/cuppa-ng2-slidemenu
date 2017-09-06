@@ -1,6 +1,6 @@
 import { Component, OnInit, NgModule, OnChanges, ViewEncapsulation, Input, Output, EventEmitter, ElementRef, AfterViewInit, Pipe, PipeTransform } from '@angular/core';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import { CommonModule }       from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from './clickOutside';
 
 @Component({
@@ -22,7 +22,7 @@ export class SlideMenu implements AfterViewInit{
     private targetElement: any;
     private overlayElem: any;
 
-    constructor(private _elementRef : ElementRef, private sanitizer: DomSanitizer) {   
+    constructor(private _elementRef: ElementRef, private sanitizer: DomSanitizer) {   
         this.addOverlayElement();
     }
 
@@ -32,27 +32,27 @@ export class SlideMenu implements AfterViewInit{
     ngAfterViewInit() {
        
     }
-    private menuToggle(){
+    menuToggle() {
          this.menuState = !this.menuState; 
          this.toggleOverlay();     
-         if(this.menuState){
+         if (this.menuState){
              this.open.emit();
-         }
-         else{
+         } else{
              this.close.emit();
          }
     }
-    private closeMenu(){
+    closeMenu() {
          this.menuState = false; 
          this.overlayElem.style['opacity'] = 0;        
     }
-    private onItemClick(item:any){
-          this.itemSelect.emit(item);  
+    onItemClick(item: any) {
+          this.itemSelect.emit(item);
+          this.closeMenu();
     }
-    private toggleSubMenu(item:any){
+    toggleSubMenu(item: any) {
         item.expand = !item.expand;
     }
-    private addOverlayElement(){
+    addOverlayElement() {
         this.overlayElem = document.createElement('div');
         this.overlayElem.classList.add('cuppa-menu-overlay');
         this.overlayElem.style['position'] = 'fixed';
@@ -66,11 +66,10 @@ export class SlideMenu implements AfterViewInit{
         this.overlayElem.style['transition'] = 'all .2s linear';
         document.getElementsByTagName('body')[0].appendChild(this.overlayElem);
     }
-    private toggleOverlay(){
-        if(this.overlayElem.style['opacity'] == 0){
+    toggleOverlay() {
+        if(this.overlayElem.style['opacity'] === 0) {
             this.overlayElem.style['opacity'] = 1;
-        }
-        else if(this.overlayElem.style['opacity'] == 1){
+        } else if(this.overlayElem.style['opacity'] === 1) {
             this.overlayElem.style['opacity'] = 0;
         }
     }
